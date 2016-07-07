@@ -1,2 +1,2 @@
 # java-utils
-Java common utils.
+Java常用处理类和工具类。
