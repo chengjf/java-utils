@@ -5,6 +5,9 @@ public final class CodecUtils {
 			'9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 	public static String byteArrayToHexString(byte[] val) {
+		if(val == null){
+			return null;
+		}
 		StringBuffer sb = new StringBuffer();
 		for (byte b : val) {
 			sb.append(hex[b >> 4 & 0x0F]);
