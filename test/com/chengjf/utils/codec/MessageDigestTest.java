@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
- * Ê¹ÓÃJava×Ô´ø¹¤¾ß½øĞĞÕªÒªËã·¨ ±ÈÈç³£¼ûµÄMD5£¬SHA-256,ºÍSHA-512¡£
+ * ä½¿ç”¨Javaè‡ªå¸¦å·¥å…·è¿›è¡Œæ‘˜è¦ç®—æ³• æ¯”å¦‚å¸¸è§çš„MD5ï¼ŒSHA-256,å’ŒSHA-512ã€‚
  * 
  * @author chengjianfeng
  *
@@ -20,8 +20,8 @@ public class MessageDigestTest {
 
 	private static void MD5Test() {
 		try {
-			String value = "Hello, ÊÀ½ç£¡";
-			// Ä¿Ç°Ö§³ÖµÄÕªÒªËã·¨ÓĞMD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
+			String value = "Hello, ä¸–ç•Œï¼";
+			// ç›®å‰æ”¯æŒçš„æ‘˜è¦ç®—æ³•æœ‰MD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
 			MessageDigest digest = MessageDigest.getInstance("MD5");
 			byte[] rs = digest.digest(value.getBytes("UTF-8"));
 			System.out.println(Arrays.toString(rs));
@@ -33,8 +33,8 @@ public class MessageDigestTest {
 
 	private static void SHA256Test() {
 		try {
-			String value = "Hello, ÊÀ½ç£¡";
-			// Ä¿Ç°Ö§³ÖµÄÕªÒªËã·¨ÓĞMD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
+			String value = "Hello, ä¸–ç•Œï¼";
+			// ç›®å‰æ”¯æŒçš„æ‘˜è¦ç®—æ³•æœ‰MD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] rs = digest.digest(value.getBytes("UTF-8"));
 			System.out.println(Arrays.toString(rs));
@@ -46,8 +46,8 @@ public class MessageDigestTest {
 
 	private static void SHA512Test() {
 		try {
-			String value = "Hello, ÊÀ½ç£¡";
-			// Ä¿Ç°Ö§³ÖµÄÕªÒªËã·¨ÓĞMD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
+			String value = "Hello, ä¸–ç•Œï¼";
+			// ç›®å‰æ”¯æŒçš„æ‘˜è¦ç®—æ³•æœ‰MD2/MD5/SHA-1/SHA-256/SHA-384/SHA-512
 			MessageDigest digest = MessageDigest.getInstance("SHA-512");
 			byte[] rs = digest.digest(value.getBytes("UTF-8"));
 			System.out.println(Arrays.toString(rs));

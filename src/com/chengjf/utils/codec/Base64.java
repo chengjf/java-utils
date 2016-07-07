@@ -1,8 +1,8 @@
 package com.chengjf.utils.codec;
 
 /**
- * ¸ÃÀàÀ´×ÔÓÚ <a href="http://pivot.apache.org/">Apache Pivot</a> ÖĞÌáÈ¡³öÀ´µÄ
- * <b>org.apache.pivot.util.Base64</b>¡£ ²»¹ı²âÊÔºó£¬·¢ÏÖÎŞ·¨Ö§³ÖÖĞÎÄ×Ö·û´®£¬ÎÒ¶ÔÆä½øĞĞÁËĞŞ¸Ä¡£
+ * è¯¥ç±»æ¥è‡ªäº <a href="http://pivot.apache.org/">Apache Pivot</a> ä¸­æå–å‡ºæ¥çš„
+ * <b>org.apache.pivot.util.Base64</b>ã€‚ ä¸è¿‡æµ‹è¯•åï¼Œå‘ç°æ— æ³•æ”¯æŒä¸­æ–‡å­—ç¬¦ä¸²ï¼Œæˆ‘å¯¹å…¶è¿›è¡Œäº†ä¿®æ”¹ã€‚
  * 
  * @author chengjianfeng
  *
@@ -70,7 +70,7 @@ public class Base64 {
 		StringBuilder buf = new StringBuilder(4 * (bytes.length / 3 + 1));
 
 		for (int i = 0, n = bytes.length; i < n;) {
-			// ĞŞ¸ÄÔÚ´Ë´¦£¬½«×Ö½Ú×ª»»ÎªÎŞ·ûºÅÕûĞÍ
+			// ä¿®æ”¹åœ¨æ­¤å¤„ï¼Œå°†å­—èŠ‚è½¬æ¢ä¸ºæ— ç¬¦å·æ•´å‹
 			int b0 = bytes[i++] & 0xFF;
 			int b1 = ((i++ < n) ? bytes[i - 1] & 0xFF : 0);
 			int b2 = ((i++ < n) ? bytes[i - 1] & 0xFF : 0);

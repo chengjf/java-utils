@@ -1,7 +1,7 @@
 package com.chengjf.utils.codec;
 
 /**
- * ±àÂëÏà¹Ø¹¤¾ßÀà
+ * ç¼–ç ç›¸å…³å·¥å…·ç±»
  * 
  * @author chengjianfeng
  *

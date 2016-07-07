@@ -7,7 +7,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * ¼ÓÃÜ½âÃÜËã·¨Ê¾Àı ±ÈÈç³£¼ûµÄDES£¬3DES
+ * åŠ å¯†è§£å¯†ç®—æ³•ç¤ºä¾‹ æ¯”å¦‚å¸¸è§çš„DESï¼Œ3DES
  * 
  * @author chengjianfeng
  *
@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class CryptoTest {
 
 	/**
-	 * Éú³É¸ø¶¨³¤¶ÈµÄËæ»ú×Ö½ÚÊı×é
+	 * ç”Ÿæˆç»™å®šé•¿åº¦çš„éšæœºå­—èŠ‚æ•°ç»„
 	 * 
 	 * @param length
 	 * @return
@@ -35,61 +35,61 @@ public class CryptoTest {
 	}
 
 	/**
-	 * DES¼Ó½âÃÜ£¬ÃÜÔ¿³¤¶È64bits£¬8bytes
+	 * DESåŠ è§£å¯†ï¼Œå¯†é’¥é•¿åº¦64bitsï¼Œ8bytes
 	 */
 	private static void DESTest() {
-		String value = "Hello, ÊÀ½ç£¡";
+		String value = "Hello, ä¸–ç•Œï¼";
 		byte[] secretKey = generateBytes(8);
 
-		// ¼ÓÃÜ
+		// åŠ å¯†
 		byte[] rs = encryptDES(value.getBytes(), secretKey);
 		System.out.println(CodecUtils.byteArrayToHexString(rs));
 
-		// ½âÃÜ
+		// è§£å¯†
 		byte[] rs2 = decryptDES(rs, secretKey);
 		System.out.println(new String(rs2));
 	}
 
 	/**
-	 * DES¼Ó½âÃÜ£¬ÃÜÔ¿³¤¶È168bits£¬ÆäÊµÊÇ3¸öÃÜÔ¿£¬Ã¿¸öÃÜÔ¿64bits£¬ËùÒÔÌá¹©24bytesµÄÃÜÔ¿ ¼ÓÃÜ£ºciphertext =
-	 * EK3(DK2(EK1(plaintext))) ½âÃÜ£ºplaintext = DK1(EK2(DK3(ciphertext)))
+	 * DESåŠ è§£å¯†ï¼Œå¯†é’¥é•¿åº¦168bitsï¼Œå…¶å®æ˜¯3ä¸ªå¯†é’¥ï¼Œæ¯ä¸ªå¯†é’¥64bitsï¼Œæ‰€ä»¥æä¾›24bytesçš„å¯†é’¥ åŠ å¯†ï¼šciphertext =
+	 * EK3(DK2(EK1(plaintext))) è§£å¯†ï¼šplaintext = DK1(EK2(DK3(ciphertext)))
 	 */
 	private static void TripleDESTest() {
-		String value = "Hello, ÊÀ½ç£¡";
+		String value = "Hello, ä¸–ç•Œï¼";
 		byte[] secretKey = generateBytes(24);
 
-		// ¼ÓÃÜ
+		// åŠ å¯†
 		byte[] rs = encrypt3DES(value.getBytes(), secretKey);
 		System.out.println(CodecUtils.byteArrayToHexString(rs));
 
-		// ½âÃÜ
+		// è§£å¯†
 		byte[] rs2 = decrypt3DES(rs, secretKey);
 		System.out.println(new String(rs2));
 	}
 
 	/**
-	 * AES¼Ó½âÃÜ ÃÜÔ¿³¤¶È¿ÉÒÔÎª 128, 192, and 256 bits. The size of the user key material
-	 * in bytes. MUST be one of (16, 24, 32). µ«ÊÇÄ¬ÈÏÖ»ÓĞ16bytesµÄÃÜÔ¿¿ÉÒÔÊ¹ÓÃ£¬24ºÍ32µÄĞèÒªÊ¹ÓÃ
+	 * AESåŠ è§£å¯† å¯†é’¥é•¿åº¦å¯ä»¥ä¸º 128, 192, and 256 bits. The size of the user key material
+	 * in bytes. MUST be one of (16, 24, 32). ä½†æ˜¯é»˜è®¤åªæœ‰16bytesçš„å¯†é’¥å¯ä»¥ä½¿ç”¨ï¼Œ24å’Œ32çš„éœ€è¦ä½¿ç”¨
 	 * <a href=
 	 * "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">Java
 	 * Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
 	 * 8 Download</a>
 	 */
 	private static void AESTest() {
-		String value = "Hello, ÊÀ½ç£¡";
+		String value = "Hello, ä¸–ç•Œï¼";
 		byte[] secretKey = generateBytes(16); // 16,24,32
 
-		// ¼ÓÃÜ
+		// åŠ å¯†
 		byte[] rs = encryptAES(value.getBytes(), secretKey);
 		System.out.println(CodecUtils.byteArrayToHexString(rs));
 
-		// ½âÃÜ
+		// è§£å¯†
 		byte[] rs2 = decryptAES(rs, secretKey);
 		System.out.println(new String(rs2));
 	}
 
 	/**
-	 * DES¼ÓÃÜ
+	 * DESåŠ å¯†
 	 * 
 	 * @param value
 	 * @param key
@@ -109,7 +109,7 @@ public class CryptoTest {
 	}
 
 	/**
-	 * DES½âÃÜ
+	 * DESè§£å¯†
 	 * 
 	 * @param value
 	 * @param key
@@ -129,7 +129,7 @@ public class CryptoTest {
 	}
 
 	/**
-	 * 3DES¼ÓÃÜ
+	 * 3DESåŠ å¯†
 	 * 
 	 * @param value
 	 * @param key
@@ -149,7 +149,7 @@ public class CryptoTest {
 	}
 
 	/**
-	 * 3DES½âÃÜ
+	 * 3DESè§£å¯†
 	 * 
 	 * @param value
 	 * @param key
@@ -169,7 +169,7 @@ public class CryptoTest {
 	}
 
 	/**
-	 * AES¼ÓÃÜ
+	 * AESåŠ å¯†
 	 * 
 	 * @param value
 	 * @param key
@@ -189,7 +189,7 @@ public class CryptoTest {
 	}
 
 	/**
-	 * AES½âÃÜ
+	 * AESè§£å¯†
 	 * 
 	 * @param value
 	 * @param key

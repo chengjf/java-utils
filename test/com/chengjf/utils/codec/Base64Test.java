@@ -3,7 +3,7 @@ package com.chengjf.utils.codec;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Base64²âÊÔÊ¾Àı
+ * Base64æµ‹è¯•ç¤ºä¾‹
  * 
  * @author chengjianfeng
  *
@@ -12,14 +12,14 @@ import java.io.UnsupportedEncodingException;
 public class Base64Test {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		String str = "Hello, ÊÀ½ç£¡";
-		// ±àÂë
-		// String×ªbyteÊı×éµÄÊ±ºò£¬¿ÉÒÔ×Ô¼ºÖ¸¶¨±àÂë¸ñÊ½£¬ÍÆ¼öÊ¹ÓÃUTF-8
+		String str = "Hello, ä¸–ç•Œï¼";
+		// ç¼–ç 
+		// Stringè½¬byteæ•°ç»„çš„æ—¶å€™ï¼Œå¯ä»¥è‡ªå·±æŒ‡å®šç¼–ç æ ¼å¼ï¼Œæ¨èä½¿ç”¨UTF-8
 		String encodeResult = Base64.encode(str.getBytes("UTF-8"));
 		System.out.println(encodeResult);
-		// ½âÂë
+		// è§£ç 
 		byte[] rs = Base64.decode(encodeResult);
-		// byteÊı×é×ªStringµÄÊ±ºò£¬Ê¹ÓÃÍ¬ÉÏÃæÏàÍ¬µÄ±àÂë¸ñÊ½
+		// byteæ•°ç»„è½¬Stringçš„æ—¶å€™ï¼Œä½¿ç”¨åŒä¸Šé¢ç›¸åŒçš„ç¼–ç æ ¼å¼
 		String decodeResult = new String(rs, "UTF-8");
 		System.out.println(decodeResult);
 	}
