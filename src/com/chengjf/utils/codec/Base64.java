@@ -1,12 +1,13 @@
 package com.chengjf.utils.codec;
 
 /**
- * 该类来自于  <a href="http://pivot.apache.org/">Apache Pivot</a> 中提取出来的 <b>org.apache.pivot.util.Base64</b>。
- * 不过测试后，发现无法支持中文字符串，我对其进行了修改。
+ * 该类来自于 <a href="http://pivot.apache.org/">Apache Pivot</a> 中提取出来的
+ * <b>org.apache.pivot.util.Base64</b>。 不过测试后，发现无法支持中文字符串，我对其进行了修改。
  * 
- * @author CHENGJIANFENG100
- * 
- * @date 2016年7月7日 下午4:30:53
+ * @author chengjianfeng
+ *
+ * @date 2016-07-07
+ * @version 1.0.0
  */
 public class Base64 {
 	private static final char[] lookup = new char[64];

@@ -5,12 +5,12 @@ import java.io.UnsupportedEncodingException;
 /**
  * Base64测试示例
  * 
- * @author CHENGJIANFENG100
+ * @author chengjianfeng
  *
- * @date 2016年7月7日 下午4:35:23
+ * @date 2016-07-07
  */
 public class Base64Test {
-	
+
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		String str = "Hello, 世界！";
 		// 编码

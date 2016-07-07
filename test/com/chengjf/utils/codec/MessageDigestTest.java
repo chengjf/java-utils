@@ -6,9 +6,9 @@ import java.util.Arrays;
 /**
  * 使用Java自带工具进行摘要算法 比如常见的MD5，SHA-256,和SHA-512。
  * 
- * @author CHENGJIANFENG100
+ * @author chengjianfeng
  *
- * @date 2016年7月7日 下午4:39:55
+ * @date 2016-07-07
  */
 public class MessageDigestTest {
 
