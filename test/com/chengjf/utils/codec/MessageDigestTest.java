@@ -4,10 +4,10 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
- * 使用Java自带工具进行摘要算法 比如常见的MD5，SHA-256,和SHA-512。
+ * 使用Java自带工具进行摘要算法</br>
+ * 比如常见的MD5，SHA-256,和SHA-512。
  * 
  * @author chengjianfeng
- *
  * @date 2016-07-07
  */
 public class MessageDigestTest {

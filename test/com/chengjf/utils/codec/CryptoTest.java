@@ -10,7 +10,6 @@ import javax.crypto.spec.SecretKeySpec;
  * 加密解密算法示例 比如常见的DES，3DES
  * 
  * @author chengjianfeng
- *
  * @date 2016-07-07
  */
 public class CryptoTest {
@@ -51,8 +50,9 @@ public class CryptoTest {
 	}
 
 	/**
-	 * DES加解密，密钥长度168bits，其实是3个密钥，每个密钥64bits，所以提供24bytes的密钥 加密：ciphertext =
-	 * EK3(DK2(EK1(plaintext))) 解密：plaintext = DK1(EK2(DK3(ciphertext)))
+	 * DES加解密，密钥长度168bits，其实是3个密钥，每个密钥64bits，所以提供24bytes的密钥<br/>
+	 * 加密：ciphertext = EK3(DK2(EK1(plaintext)))<br/>
+	 * 解密：plaintext = DK1(EK2(DK3(ciphertext)))
 	 */
 	private static void TripleDESTest() {
 		String value = "Hello, 世界！";
@@ -69,9 +69,11 @@ public class CryptoTest {
 
 	/**
 	 * AES加解密 密钥长度可以为 128, 192, and 256 bits. The size of the user key material
-	 * in bytes. MUST be one of (16, 24, 32). 但是默认只有16bytes的密钥可以使用，24和32的需要使用
+	 * in bytes. MUST be one of (16, 24, 32). <br/>
+	 * 但是默认只有16bytes的密钥可以使用，24和32的需要使用
 	 * <a href=
-	 * "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">Java
+	 * "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html"
+	 * >Java
 	 * Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
 	 * 8 Download</a>
 	 */
