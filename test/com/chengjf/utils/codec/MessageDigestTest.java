@@ -1,5 +1,8 @@
 package com.chengjf.utils.codec;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -16,6 +19,7 @@ public class MessageDigestTest {
 		MD5Test();
 		SHA256Test();
 		SHA512Test();
+		MD5File();
 	}
 
 	private static void MD5Test() {
@@ -54,6 +58,37 @@ public class MessageDigestTest {
 			System.out.println(CodecUtils.byteArrayToHexString(rs));
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 获取文件的MD5值
+	 */
+	private static void MD5File() {
+
+		FileInputStream fileInputStream = null;
+		try {
+			MessageDigest digest = MessageDigest.getInstance("MD5");
+			File file = new File("C:\\Windows\\smsts.ini");
+
+			byte[] buffer = new byte[8192];
+			int length;
+			fileInputStream = new FileInputStream(file);
+			while ((length = fileInputStream.read(buffer)) != -1) {
+				digest.update(buffer, 0, length);
+			}
+			byte[] rs = digest.digest();
+			System.out.println(CodecUtils.byteArrayToHexString(rs));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
