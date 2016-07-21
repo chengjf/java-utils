@@ -1,8 +1,10 @@
 package com.chengjf.utils.codec;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -20,6 +22,7 @@ public class MessageDigestTest {
 		SHA256Test();
 		SHA512Test();
 		MD5File();
+		MD5File2();
 	}
 
 	private static void MD5Test() {
@@ -63,7 +66,9 @@ public class MessageDigestTest {
 
 	/**
 	 * 获取文件的MD5值
+	 * 推荐使用{link {@link MessageDigestTest#MD5File2()}
 	 */
+	@Deprecated
 	private static void MD5File() {
 
 		FileInputStream fileInputStream = null;
@@ -88,6 +93,36 @@ public class MessageDigestTest {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+	}
+
+	/**
+	 * 从 {@link org.sqlite.SQLiteJDBCLoader#md5sum}来
+	 */
+	private static void MD5File2() {
+		BufferedInputStream in = null;
+		DigestInputStream digestInputStream = null;
+		try {
+			in = new BufferedInputStream(new FileInputStream(
+					"C:\\Windows\\smsts.ini"));
+			MessageDigest digest = java.security.MessageDigest
+					.getInstance("MD5");
+			digestInputStream = new DigestInputStream(in, digest);
+			for (; digestInputStream.read() >= 0;) {
+
+			}
+			System.out
+					.println(CodecUtils.byteArrayToHexString(digest.digest()));
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				in.close();
+				digestInputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
