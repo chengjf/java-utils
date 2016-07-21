@@ -16,8 +16,13 @@ public class DatabaseTest {
 
 	public static void main(String[] args) {
 		sqliteTest();
+		mysqlTest();
+		mybatisSql();
 	}
 
+	/**
+	 * sqlite数据库测试，需要引入sqlite的JDBC包。
+	 */
 	private static void sqliteTest() {
 
 		try {
@@ -45,5 +50,26 @@ public class DatabaseTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * mysql数据库测试，需要引入mysql的JDBC包。
+	 */
+	private static void mysqlTest() {
+		// TODO
+	}
+
+	/**
+	 * java.sql的日志是原SQL和参数分开，自己验证SQL的话需要手动将参数写进去<br/>
+	 * 所以写了该方法，将SQL和参数拼装在一起
+	 */
+	private static void mybatisSql() {
+		String sqlStr = "select codeId, description from ( select s.securno codeId,   s.secur_abbr_name   description from security_info s,wealth_pro_valuation_rel b where s.secur_type   = ? and s.securno = b.securno        and     s.marketno = ?          order by securid ) where rownum <= 1000  ";
+		String params = "9, W";
+		for (String str : params.split(", ")) {
+			sqlStr = sqlStr.replaceFirst("\\?", "'" + str + "'");
+		}
+		System.out.println(sqlStr);
+
 	}
 }
