@@ -6,8 +6,8 @@ import java.io.UnsupportedEncodingException;
  * Base64测试示例
  * 
  * @author chengjianfeng
- *
  * @date 2016-07-07
+ * @version 1.0.0
  */
 public class Base64Test {
 

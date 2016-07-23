@@ -4,7 +4,6 @@ package com.chengjf.utils.codec;
  * 编码相关工具类
  * 
  * @author chengjianfeng
- *
  * @date 2016-07-07
  * @version 1.0.0
  */

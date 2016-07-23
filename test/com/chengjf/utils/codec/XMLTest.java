@@ -15,6 +15,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  * @author chengjianfeng
  * @date 2016-07-19
+ * @version 1.0.0
  */
 public class XMLTest {
 

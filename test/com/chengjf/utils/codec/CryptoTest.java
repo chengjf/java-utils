@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 
  * @author chengjianfeng
  * @date 2016-07-07
+ * @version 1.0.0
  */
 public class CryptoTest {
 
