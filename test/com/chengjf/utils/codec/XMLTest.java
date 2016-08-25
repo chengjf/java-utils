@@ -5,22 +5,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Stack;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.w3c.dom.Document;
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
@@ -52,19 +44,18 @@ public class XMLTest {
 					xmlStr.getBytes());
 			parser.parse(inputStream, new DefaultHandler());
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * 校验XML字符串格式是否正确
+	 * 校验XML文件是否正确
+	 * 
+	 * @param fileName
 	 */
 	private static void validateXMLFormat(String fileName) {
 
@@ -73,13 +64,10 @@ public class XMLTest {
 			InputStream inputStream = new FileInputStream(new File(fileName));
 			parser.parse(inputStream, new DefaultHandler());
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -107,7 +95,6 @@ public class XMLTest {
 				public void unparsedEntityDecl(String name, String publicId,
 						String systemId, String notationName)
 						throws SAXException {
-					// TODO Auto-generated method stub
 					System.out.println(name + publicId + systemId
 							+ notationName);
 				}
@@ -115,7 +102,6 @@ public class XMLTest {
 				@Override
 				public void notationDecl(String name, String publicId,
 						String systemId) throws SAXException {
-					// TODO Auto-generated method stub
 					System.out.println(name + publicId + systemId);
 				}
 			});
@@ -127,10 +113,8 @@ public class XMLTest {
 			xmlReader.parse(new InputSource(fileName));
 
 		} catch (ParserConfigurationException | SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
