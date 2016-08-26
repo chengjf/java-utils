@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE  root SYSTEM "sql-map-2.dtd">
+
+<sqlMap namespace="business">
+	<!-- BEGIN 托管行与HIPO科目对应设置 
+	<select id="selectFromBankHipoAccMapTable" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+
+		select t.groupno as groupNo,
+		t.bankno as bankNo,
+		t.cmbno as cmbNo,
+		t.bank_account_no as bankAccountNo,
+		t.hipo_account_no as hipoAccountNo,
+		t.bank_account_name as bankAccountName,
+		t.hipo_account_name as
+		hipoAccountName,
+		t.data_state as dataState,
+		d.description as
+		dataStateName,
+		t.created_by as createdBy,
+		t.created_date as createDate,
+		t.updated_by as updatedBy,
+		t.updated_date as updatedDate
+		from
+		IDRS_BANK_HIPO_ACC_MAPPING t,data_state d
+		where
+		t.data_state=d.data_state_no and t.bankno = #bankNo#
+
+		<dynamic>
+			<isNotEmpty prepend="and" property="cmbNo">
+				t.cmbNo = #cmbNo#
+       		</isNotEmpty>
+			<isEqual prepend="and" property="dataRole" compareValue="0">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="1">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="2">
+				(t.data_state='1' or t.data_state='3') and t.UPDATED_BY !=#userId#
+                         </isEqual>
+		</dynamic> 
+         <![CDATA[                  
+         and rownum < 10000
+         order by t.bankno,t.cmbno,t.bank_account_no
+    	]]>
+	</select>
+	-->
+	<!-- BEGIN 根据groupNo查询查询科目代码科目名称 add by hexiaolei315 20160810  -->
+	<select id="selectFromValuBankHipoAcc" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+<pp></pp>
+		select t.groupno as groupNo,
+		t.bankno as bankNo,
+		t.cmbno as cmbNo,
+		t.PROJECT_NAME as projectName,
+		t.BANK_DATA_NAME as bankDataName,
+		t.HIPO_DATA_NAME as hipoDataName,
+		t.TICKET_MAP as ticketMap,
+		t.data_state as dataState,
+		d.description as
+		dataStateName,
+		t.created_by as createdBy,
+		t.created_date as createDate,
+		t.updated_by as updatedBy,
+		t.updated_date as updatedDate
+		from
+		IDRS_VALU_BANK_HIPO_ACCOUNT t,data_state d
+		where
+		t.data_state=d.data_state_no and t.bankno = #bankNo#
+
+		<dynamic>
+			<isNotEmpty prepend="and" property="cmbNo">
+				t.cmbNo = #cmbNo#
+       		</isNotEmpty>
+			<isEqual prepend="and" property="dataRole" compareValue="0">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="1">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="2">
+				(t.data_state='1' or t.data_state='3') and t.UPDATED_BY !=#userId#
+                         </isEqual>
+		</dynamic> 
+         <![CDATA[                  
+         and rownum < 10000
+         order by t.groupno, t.bankno,t.cmbno
+    	]]>
+	</select>
+	
+	
+	<!-- BEGIN 根据groupNo查询查询科目代码科目名称 add by hexiaolei315 20160802  -->
+		<select id="selectFromBankAccMapTable" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankAccMapDTO">
+		select 
+		t.groupno,
+		t.BANK_ACCOUNT_NO as bankAccountNo,
+		t.BANK_ACCOUNT_NAME as
+		bankAccountName
+		from
+		idrs_valu_bank_account t
+		where
+		t.groupno = #groupNo#
+	</select>
+	<!-- BEGIN 根据groupNo查询查询科目代码科目名称 add by hexiaolei315 20160802  -->
+		<select id="selectFromHipoAccMapTable" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.HipoAccMapDTO">
+		select 
+		t.groupno,
+		t.HIPO_ACCOUNT_NO as hipoAccountNo,
+		t.HIPO_ACCOUNT_NAME as
+		hipoAccountName
+		from
+		IDRS_VALU_HIPO_ACCOUNT t
+		where
+		t.groupno = #groupNo#
+	 </select>
+	 
+	 	<!--add by hexiaolei315 20160812  查询groupNo-->
+	<select id="selectSeqIdrsValuBankHipoAcc"  resultClass="java.lang.Long">
+		select SEQ_IDRS_VALU_BANK_HIPO_ACC.Nextval from dual
+    </select>
+	 
+	 
+		<!-- BEGIN 托管行与汇总项对应设置  add  by hexiaolei 20160630-->
+	<select id="selectFromTrusteePaIndexMapTable" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.trusteepaindexmap.dto.TrusteePaIndexMapDTO">
+
+		select 
+		t.bankno as bankNo,
+		t.trustee_index_code as trustee_index_code,
+		t.trustee_index_name as trustee_index_name,
+		t.PA_INDEX_NAME as PA_INDEX_NAME,
+		t.hipo_account_name as
+		hipoAccountName,
+		t.data_state as dataState,
+		d.description as
+		dataStateName,
+		t.created_by as createdBy,
+		t.created_date as createDate,
+		t.updated_by as updatedBy,
+		t.updated_date as updatedDate
+		from
+		idrs_trustee_pa_index_mapping t,data_state d
+		where
+		t.data_state=d.data_state_no and t.bankno = #bankNo#
+
+         <![CDATA[                  
+         and rownum < 10000
+         order by t.bankno,t.trustee_index_code
+    	]]>
+	</select>
+	
+	
+	
+	
+	
+
+	<!-- 调用存储过程-->
+	<parameterMap id="insertBankHipoAccMapTable-map"
+		class="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+		<!-- 要确保始终只使用JDBC标准的存储过程语法。jdbcType不能是VARCHAR2 -->
+		<parameter property="bankNo" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+		<parameter property="cmbNo" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+	<!-- 	<parameter property="bankAccountNo" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="IN" />
+		<parameter property="hipoAccountNo" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="IN" />
+		<parameter property="bankAccountName" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="IN" />
+		<parameter property="hipoAccountName" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="IN" /> -->
+		<parameter property="createdBy" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+		<parameter property="updatedBy" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+		<parameter property="errorMessage" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="OUT" />
+	</parameterMap>
+
+	<!-- 查询用户数据角色报表proc -->
+	<procedure id="insertBankHipoAccMapTable" parameterMap="insertBankHipoAccMapTable-map">
+		{CALL
+		idrscde.idrs_asset_valuation_cmp.createBankHipoAccMap(?,?,?,?,?,?,?,?,?)}
+    </procedure>
+
+	<!-- 插入表 IDRS_VALU_BANK_HIPO_ACCOUNT add by hexiaolei315 20160812 -->
+	<insert id="insertIidrsValuBankHipoAccount" parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+		insert into idrsdata.IDRS_VALU_BANK_HIPO_ACCOUNT
+		  (GROUPNO,
+		   BANKNO,
+		   CMBNO,
+		   PROJECT_NAME,
+		   BANK_DATA_NAME,
+		   HIPO_DATA_NAME,
+		   TICKET_MAP,
+		   DATA_STATE,
+		   CREATED_BY,
+		   CREATED_DATE,
+		   UPDATED_BY,
+		   UPDATED_DATE)
+		values
+		  (#groupNo#,
+		   #bankNo#,
+		   #cmbNo#,
+		   #projectName#,
+		   #bankDataName#,
+		   #hipoDataName#,
+		   #ticketMap#,
+		   #dataState#,
+		   #createdBy#,
+		   sysdate,
+		   #updatedBy#,
+		   sysdate)
+    </insert>
+	<!-- 插入表 IDRS_VALU_BANK_ACCOUNT add by hexiaolei315 20160812 -->
+	<insert id="insertIidrsValuBankAccount" parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankAccMapDTO">
+		insert into idrsdata.IDRS_VALU_BANK_ACCOUNT
+		  (GROUPNO,
+		   BANK_ACCOUNT_NO,
+		   BANK_ACCOUNT_NAME,
+		   CREATED_BY,
+		   CREATED_DATE,
+		   UPDATED_BY,
+		   UPDATED_DATE)
+		values
+		  (#groupNo#,
+		   #bankAccountNo#,
+		   #bankAccountName#,
+		   #createdBy#,
+		   sysdate,
+		   #updatedBy#,
+		   sysdate)
+    </insert>
+    	<!-- 插入表 IDRS_VALU_HIPO_ACCOUNT add by hexiaolei315 20160812 -->
+	<insert id="insertIidrsValuHipoAccount" parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.HipoAccMapDTO">
+		insert into idrsdata.IDRS_VALU_HIPO_ACCOUNT
+		  (GROUPNO,
+		   HIPO_ACCOUNT_NO,
+		   HIPO_ACCOUNT_NAME,
+		   CREATED_BY,
+		   CREATED_DATE,
+		   UPDATED_BY,
+		   UPDATED_DATE)
+		  values
+		  (#groupNo#,
+		   #hipoAccountNo#,
+		   #hipoAccountName#,
+		   #createdBy#,
+		   sysdate,
+		   #updatedBy#,
+		   sysdate)
+    </insert>
+<!--modefied by hexiaolei 20160815 -->
+	<update id="updateDataStateBankHipoAccMapTable"
+		parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+		<!--UPDATE IDRS_BANK_HIPO_ACC_MAPPING
+		SET DATA_STATE =
+		#dataStateNew#,
+		updated_By = #updatedBy#,
+		updated_Date = sysdate
+		WHERE
+		bankno = #bankNo#
+		AND cmbno = #cmbNo#
+ 		AND bank_account_no =
+		#bankAccountNo#
+		AND hipo_account_no = #hipoAccountNo# 
+		AND updated_Date =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+		AND DATA_STATE = #dataState#-->
+		
+		UPDATE IDRS_VALU_BANK_HIPO_ACCOUNT
+		SET DATA_STATE =
+		#dataStateNew#,
+		updated_By = #updatedBy#,
+		updated_Date = sysdate
+		WHERE
+		bankno = #bankNo#
+		AND cmbno = #cmbNo#
+ 		AND groupNo=#groupNo#
+		AND updated_Date =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+		AND DATA_STATE = #dataState#
+	</update>
+
+	<delete id="deleteBankHipoAccMapTable" parameterClass="java.util.Map">
+		<!--  DELETE
+		FROM IDRS_BANK_HIPO_ACC_MAPPING
+		WHERE bankno = #bankNo#
+		AND cmbno =
+		#cmbNo#
+		AND bank_account_no = #bankAccountNo#
+		AND hipo_account_no =
+		#hipoAccountNo#
+		AND updated_Date =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+		-->
+		DELETE FROM IDRS_VALU_BANK_HIPO_ACCOUNT
+		WHERE bankno = #bankNo#
+		AND cmbno = #cmbNo#
+		AND groupNo = #groupNo#
+		AND updated_Date =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+	</delete>
+
+	<!-- END 托管行与HIPO科目对应设置 -->
+	
+		<!-- BEGIN 托管行的科目设置 add by hexiaolei315 20160803 -->
+	<delete id="deleteBankAccMapTableByGroupNo" parameterClass="java.util.Map">
+		DELETE
+		FROM idrs_valu_bank_account
+		WHERE  groupno = #groupNo#
+	</delete>
+	<!-- BEGIN 托管行的科目设置 add by hexiaolei315 20160803 -->
+	<delete id="deleteHipoAccMapTableByGroupNo" parameterClass="java.util.Map">
+		DELETE
+		FROM idrs_valu_hipo_account
+		WHERE  groupno = #groupNo#
+	</delete>
+	
+	
+	<!-- BEGIN 托管行的科目设置 add by hexiaolei315 20160803 -->
+	<delete id="deleteBankAccMapTable" parameterClass="java.util.Map">
+		DELETE
+		FROM idrs_valu_bank_account
+		WHERE  groupno = #groupNo#
+		AND  BANK_ACCOUNT_NO=#bankAccountNo#
+	</delete>
+		<!-- BEGIN 托管行的科目设置 add by hexiaolei315 20160803 -->
+	<delete id="deleteHipoAccMapTable" parameterClass="java.util.Map">
+		DELETE
+		FROM idrs_valu_hipo_account
+		WHERE  groupno = #groupNo#
+		AND  HIPO_ACCOUNT_NO=#hipoAccountNo#
+	</delete>
+
+		
+	<!-- BEGIN 托管行与HIPO汇总项对应设置 -->
+	<select id="selectFromBankHipoAccIndexTable" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccindex.dto.BankHipoAccIndexDTO">
+    select '' as groupNo,
+           t.BANK_NO as bankNo,
+           t.cmbno as cmbNo,
+           '' as bankAccountName,
+           '' as hipoAccountName,
+           t.TRUSTEE_INDEX_NAME as bankAccountNo,
+           t.PA_INDEX_NAME as hipoAccountNo,
+           t.data_state as dataState,
+           d.description as dataStateName,
+           t.created_by as createdBy,
+           t.DATE_CREATED as createDate,
+           t.updated_by as updatedBy,
+           t.DATE_UPDATED as updatedDate,
+           t.PROJECT_NAME projectName,
+           t.BANK_DATA_NAME bankDataName,
+           t.HIPO_DATA_NAME hipoDataName
+      from idrs_trustee_pa_index_mapping t, data_state d
+     where t.data_state = d.data_state_no
+       and t.BANK_NO = #bankNo#
+		<dynamic>
+			<isNotEmpty prepend="and" property="cmbNo">
+				t.cmbNo = #cmbNo#
+       		</isNotEmpty>
+			<isEqual prepend="and" property="dataRole" compareValue="0">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="1">
+				(t.DATA_STATE='0' or t.DATA_STATE='1' or t.DATA_STATE='3' or
+				t.DATA_STATE='5' or t.DATA_STATE='2')
+                         </isEqual>
+			<isEqual prepend="and" property="dataRole" compareValue="2">
+				(t.data_state='1' or t.data_state='3') and t.UPDATED_BY !=#userId#
+                         </isEqual>
+		</dynamic> 
+         <![CDATA[                  
+         order by t.bank_no,t.cmbno,t.TRUSTEE_INDEX_NAME
+    	]]>
+	</select>
+
+	<!-- 查询用户数据角色报表proc -->
+	<insert id="insertBankHipoAccIndexTable" parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccindex.dto.BankHipoAccIndexDTO">
+		insert into idrsdata.idrs_trustee_pa_index_mapping
+		  (ID,
+		   BANK_NO,
+		   TRUSTEE_INDEX_CODE,
+		   TRUSTEE_INDEX_NAME,
+		   PA_INDEX_NAME,
+		   CREATED_BY,
+		   DATE_CREATED,
+		   UPDATED_BY,
+		   DATE_UPDATED,
+		   DATA_STATE,
+		   CMBNO,
+		   PROJECT_NAME,
+		   BANK_DATA_NAME,
+		   HIPO_DATA_NAME)
+		values
+		  (sys_guid(),
+		   #bankNo#,
+		   '0',
+		   #bankAccountNo#,
+		   #hipoAccountNo#,
+		   #createdBy#,
+		   sysdate,
+		   #updatedBy#,
+		   sysdate,
+		   '0',
+		   #cmbNo#,
+		   #projectName#,
+		   #bankDataName#,
+		   #hipoDataName#)
+    </insert>
+
+	<update id="updateDataStateBankHipoAccIndexTable"
+		parameterClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccindex.dto.BankHipoAccIndexDTO">
+		UPDATE idrs_trustee_pa_index_mapping
+		SET data_state =
+		#dataStateNew#,
+		updated_By = #updatedBy#,
+		date_updated = sysdate
+		WHERE
+		BANK_NO = #bankNo#
+		AND TRUSTEE_INDEX_NAME =
+		#bankAccountNo#
+		AND PA_INDEX_NAME = #hipoAccountNo#
+		AND cmbno = #cmbNo#
+		AND date_updated =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+		AND data_state = #dataState#
+	</update>
+
+	<delete id="deleteBankHipoAccIndexTable" parameterClass="java.util.Map">
+		DELETE
+		FROM idrs_trustee_pa_index_mapping
+		WHERE bank_no = #bankNo#
+		AND cmbno =
+		#cmbNo#
+		AND TRUSTEE_INDEX_NAME = #bankAccountNo#
+		AND PA_INDEX_NAME =
+		#hipoAccountNo#
+		AND date_updated =
+		to_date(to_char(#updatedDate#,'yyyy-mm-dd
+		HH24:mi:ss'),'yyyy-mm-dd
+		HH24:mi:ss')
+	</delete>
+	<!-- END 托管行与HIPO汇总项对应设置 -->
+
+	<!-- BEGIN 托管资产估值比对  -->
+	<insert id="insertAssetValuationData"
+		parameterClass="com.paic.is.idrs.business.datacompare.assetvaluation.dto.AssetValuationDTO">
+		insert into IDRS_ASSET_VALUA_COMP_TMP (
+		ID_IDRS_ASSET_VALUA_COMP_TMP,
+		CAL_ID,
+		CMBNO,
+		THE_DATE,
+		ASSET_VALUATION_RESOURCE,
+		ACCOUNT_NO,
+		VALUATION_TYPE,
+		VALUATION_PRICE,
+		BATCH_GROUO_ID,
+		CREATED_BY,
+		CREATED_DATE,
+		UPDATED_BY,
+		UPDATED_DATE,
+		groupNo,
+		ticket_type,
+		ticket_code
+		)
+		values(
+		sys_guid(),
+		#calId#,
+		#cmbno#,
+		#theDate#,
+		#assetValuationResource#,
+		#accountNo#,
+		#valuationType#,
+		#valuationPrice#,
+		#batchGrouoId#,
+		#fcu#,
+		sysdate,
+		#lcu#,
+		sysdate,
+		#groupNo#,
+		#ticketType#,
+		#ticketCode#
+		)
+	</insert>
+
+	<!--查询估值比对结果 modify by limin697 2012-01-11-->
+	<!--查询估值比对结果 modify by hexiaolei315 2016-08-18-->
+	<select id="queryValuationCompareResult" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.datacompare.assetvaluation.dto.AssetCompareResultDTO">
+		select
+		distinct a.cal_id calId,
+		a.batch_grouo_id batchGrouoId,
+		a.the_date theDate,
+		a.hipo_account_no hipoAccountNo,	
+		a.hipo_valuation_price hipoValuationPrice,
+		a.custodian_account_no custodianAccountNo,
+		a.custodian_valuation_price
+		custodianValuationPrice,
+		a.error_msg errorMsg,
+		c.cmbno cmbno,
+		c.cmb_name
+		cmbName,
+		a.custodian_bankno custodianBankNo,
+		e.bank_name bankName,
+		a.valuation_type valuationType,
+		a.BANK_ACCOUNT_NAME custodianAccountName,
+        a.HIPO_ACCOUNT_NAME hipoAccountName,
+        a.BANK_DATA_NAME bankDataName,
+        a.HIPO_DATA_NAME hipoDataName,
+        a.ticket_code ticketCode,
+        a.GROUPNO groupNo
+		from IDRS_ASSET_COMP_RESULT_TMP a,
+		     vw_combination_tbl_idrs c,
+		     IDRS_VALU_BANK_HIPO_ACCOUNT d,
+		     BANK_TBL_VW e
+		where a.cmbno = c.cmbno
+		and a.custodian_bankno = d.bankno
+		and a.cmbno=d.cmbno
+		and a.error_msg is not null
+		and c.arrangement='4'
+		and a.custodian_bankno = e.bankno
+		and a.groupno=d.groupno
+	    <dynamic>
+			<isNotEmpty property="calId" prepend="and">
+				a.cal_id = #calId#
+            </isNotEmpty>
+		</dynamic>
+     UNION
+    select
+		distinct a.cal_id calId,
+		a.batch_grouo_id batchGrouoId,
+		a.the_date theDate,
+		d.PA_INDEX_NAME hipoAccountNo,
+		
+		a.hipo_valuation_price hipoValuationPrice,
+		d.TRUSTEE_INDEX_NAME custodianAccountNo,
+		
+		a.custodian_valuation_price
+		custodianValuationPrice,
+		a.error_msg errorMsg,
+		c.cmbno cmbno,
+		c.cmb_name
+		cmbName,
+		a.custodian_bankno custodianBankNo,
+		e.bank_name bankName,
+		a.valuation_type valuationType,
+		a.BANK_ACCOUNT_NAME custodianAccountName,
+        a.HIPO_ACCOUNT_NAME hipoAccountName,
+        a.BANK_DATA_NAME bankDataName,
+        a.HIPO_DATA_NAME hipoDataName,
+        '' ticketCode,
+        a.GROUPNO groupNo
+		from IDRS_ASSET_COMP_RESULT_TMP a,
+		     vw_combination_tbl_idrs c,
+		     IDRS_TRUSTEE_PA_INDEX_MAPPING d,
+		     BANK_TBL_VW e
+		where a.cmbno = c.cmbno
+		and a.custodian_bankno = d.bank_no
+		and a.hipo_account_no = d.pa_index_name
+		and (d.bank_no not in ('01','02','03') or (a.cmbno = d.cmbno and d.bank_no in ('01','02','03')))
+		and a.custodian_account_no = d.trustee_index_name
+		and a.error_msg is not null
+		and c.arrangement='4'
+		and a.custodian_bankno = e.bankno
+	     <dynamic>
+			<isNotEmpty property="calId" prepend="and">
+				a.cal_id = #calId#
+            </isNotEmpty>
+		</dynamic> 
+		 order by batchGrouoId, hipoAccountNo,ticketCode desc
+	</select>
+
+	<!--查询估值比对结果-->
+	<select id="getRightCompareResultList" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.datacompare.assetvaluation.dto.AssetCompareResultDTO">
+		select distinct custodian_bankno custodianBankNo ,
+		a.cmbno
+		cmbno ,
+		bt.bank_name bankName,
+		ct.cmb_name cmbName
+		from
+		IDRS_ASSET_COMP_RESULT_TMP a, BANK_TBL_VW bt, vw_combination_tbl_idrs ct
+		where
+		a.custodian_bankno = bt.bankno
+		and a.cmbno = ct.cmbno
+		and
+		(a.custodian_bankno, a.cmbno) not in
+		(select distinct custodian_bankno,
+		cmbno
+		from IDRS_ASSET_COMP_RESULT_TMP b
+		where
+		b.cal_id = #calId#
+		and
+		b.error_msg is not null)
+		and a.cal_id = #calId#
+    </select>
+
+	<!--根据userId查询mail-->
+	<select id="queryMailByUserId" parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		select MAIL from VW_USER_INFO u where u.user_id=#userId# 
+	</select>
+
+	<!--根据HIPO组合群编码查询组合信息-->
+	<select id="queryCmbInfoByGPortfolio" parameterClass="java.lang.String"
+		resultClass="com.paic.is.idrs.common.system.dto.CombinationTblDTO">
+		select a.cmbno cmbno,
+		b.cmb_name cmbName
+		from
+		cmb_pfolio_group_mapping_vw a, vw_combination_tbl_idrs b
+		where a.cmbno = b.cmbno
+		and b.arrangement = '4'
+		and a.porfolio_group = #pfolio#
+	</select>
+
+	<!--根据组合信息查询HIPO组合名称-->
+	<select id="getCmbNameByCmbInfo" parameterClass="java.lang.String"
+		resultClass="com.paic.is.idrs.common.system.dto.CombinationTblDTO">
+		select v.cmb_name cmbName,c.series_type typeNo
+		  from vw_combination_tbl_idrs v,
+		       VW_COMBINATION_TYPE_TBL c 
+		 where v.type_no = c.type_no 
+		   and v.arrangement='4' 
+		   and v.cmbno = #cmbInfo#
+	</select>
+
+
+	<!--查询HIPO科目与银行科目对照关系  所有 groupid  modified by hexiaolei31520160816  -->
+	<select id="queryAccountRelation" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankHipoAccMapDTO">
+		<!--select 
+		*
+ 		a.bank_account_no bankAccountNo,
+		a.hipo_account_no
+		hipoAccountNo 
+		from IDRS_BANK_HIPO_ACC_MAPPING a
+		where a.bankno = #bankNo#
+		and a.cmbno = #cmbno#-->
+	    select 
+	    bh.groupno groupno,
+	    bh.ticket_map ticketMap,
+		bh.bank_data_name bankDataName,
+		bh.hipo_data_name hipoDataName
+		from IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbNo#
+	</select>
+	<!--查询HIPO科目与银行科目对照关系  modified by hexiaolei31520160816-->
+	<select id="queryBankAccountRelation" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankAccMapDTO">
+	    select distinct
+		b.bank_account_no bankAccountNo
+		from idrs_valu_bank_account b,IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbno#
+		and bh.groupno=b.groupno
+	</select>
+	
+		<!--查询HIPO科目与银行科目对照关系  modified by hexiaolei31520160816-->
+	<select id="queryHipoAccountRelation" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.HipoAccMapDTO">
+	    select distinct
+		h.hipo_account_no hipoAccountNo
+		from idrs_valu_hipo_account h,IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbno#
+		and bh.groupno=h.groupno
+	</select>
+			<!--根据hipo_account_no 查询出所有的groupNo modified by hexiaolei31520160816-->
+	<select id="queryHipoGroupNoList" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.HipoAccMapDTO">
+	    select 
+		bh.groupno groupno ,
+		bh.ticket_map ticketMap,
+		bh.hipo_data_name hipoDataName,
+		h.HIPO_ACCOUNT_NO hipoAccountNo
+		from idrs_valu_hipo_account h,IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbNo#
+		and bh.groupno = h.groupno
+	</select>
+	<!--根据bank_account_no 查询出所有的groupNo modified by hexiaolei31520160816-->
+	<select id="queryBankGroupNoList" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankAccMapDTO">
+	    select 
+		bh.groupno groupno,
+		bh.ticket_map ticketMap,
+		bh.bank_data_name bankDataName ,
+		b.BANK_ACCOUNT_NO bankAccountNo
+		from idrs_valu_bank_account b,IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbNo#
+		and bh.groupno = b.groupno
+	</select>
+
+	<!--根据bank_account_no 查询出所有的groupNo modified by hexiaolei31520160816-->
+	<select id="queryDataNameByGroupNo" parameterClass="java.util.Map"
+				resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccmap.dto.BankAccMapDTO">
+	    select 
+		bh.bank_data_name bankDataName
+		bh.hipo_data_name hipoDataName
+		from IDRS_VALU_BANK_HIPO_ACCOUNT bh
+		where bh.bankno = #bankNo#
+		and bh.cmbno = #cmbNo#
+		and bh.groupno = #groupNo#
+	</select>
+	
+	
+	
+	<!--查询HIPO指标与银行指标对照关系 add by limin697 2012-01-11 -->
+	<!--查询HIPO指标与银行指标对照关系 modified by hexiaolei315 2016-08-24 -->
+	<select id="queryIndexRelation" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.reconcilingrule.bankhipoaccindex.dto.BankHipoAccIndexDTO">
+		select a.trustee_index_name bankAccountName,
+		       a.pa_index_name hipoAccountName,
+		       a.bank_data_name bankDataName,
+		       a.hipo_data_name hipoDataName
+		  from idrs_trustee_pa_index_mapping a
+		 where a.bank_no = #bankNo#
+		<dynamic>
+			<isNotEmpty prepend="and" property="cmbno">
+		       a.cmbno = #cmbno#
+		   </isNotEmpty>
+		</dynamic>
+	</select>
+
+	<parameterMap id="assetValuationCompare-map" class="java.util.Map">
+		<parameter property="p_cal_id" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+	</parameterMap>
+	<procedure id="callAssetValuationComparePrc" parameterMap="assetValuationCompare-map">
+		{CALL idrscde.idrs_asset_valuation_cmp.proc_asset_valuation_compare(?)}
+	</procedure>
+
+	<!--托管资产估值比对结束 add by wukaixiang227 20101111-->
+
+
+	<!--增加GL与OF比对SQL add by wukaixiang227 20101129 begin-->
+	<!--增加GL导入数据-->
+	<insert id="insertGlData"
+		parameterClass="com.paic.is.idrs.business.datacompare.finacialbalance.dto.GLFinacialDTO">
+		insert into IDRS_FINAC_BC_COMP_GL_TMP
+		(ID_IDRS_FINAC_BC_COMP_GL_TMP,
+		curno,
+		cal_id,
+		start_date,
+		end_date,
+		hipo_portfolio_group,
+		account_no,
+		account_desc,
+		gl_ytdbalance_first,
+		gl_ytdbalance_end,
+		created_by,
+		created_date,
+		updated_by,
+		updated_date,
+		c,
+		fs)
+		values
+		(sys_guid(),
+		#curNo#,
+		#calId#,
+		#startDate#,
+		#endDate#,
+		#hipoPortfolio#,
+		#accountNo#,
+		#accountDesc#,
+		#glYidBalanceFirst#,
+		#glYidBalanceEnd#,
+		#fcu#,
+		sysdate,
+		#lcu#,
+		sysdate,
+		#c#,
+		#fs#
+		)
+	</insert>
+
+	<!--增加OF导入数据-->
+	<insert id="insertOfData"
+		parameterClass="com.paic.is.idrs.business.datacompare.finacialbalance.dto.OFFinacialDTO">
+		insert into IDRS_FINAC_BC_COMP_OF_TMP
+		(ID_IDRS_FINAC_BC_COMP_OF_TMP,
+		curno,
+		cal_id,
+		account_date,
+		account_no,
+		account_desc,
+		of_ytdbalance_first,
+		of_ytdbalance_end,
+		created_by,
+		created_date,
+		updated_by,
+		updated_date,
+		dno,
+		tno)
+		values
+		(sys_guid(),
+		#curNo#,
+		#calId#,
+		#accountDate#,
+		#accountNo#,
+		#accountDesc#,
+		#ofYidBalanceFirst#,
+		#ofYidBalanceEnd#,
+		#fcu#,
+		sysdate,
+		#lcu#,
+		sysdate,
+		#dno#,
+		#tno#
+		)
+	</insert>
+
+	<parameterMap id="finacialBcCompare-map" class="java.util.Map">
+		<parameter property="p_cal_id" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="IN" />
+	</parameterMap>
+	<procedure id="callfinacialBcComparePrc" parameterMap="finacialBcCompare-map">
+		{CALL
+		idrscde.idrs_account_balance_cmp.proc_account_balance_compare(?)}
+	</procedure>
+
+	<!--查询比对结果中有多少币种-->
+	<select id="queryFinacialBcComRsCur" parameterClass="java.lang.String"
+		resultClass="com.paic.is.idrs.business.datacompare.finacialbalance.dto.FinacialBalanceCompareResultDTO">
+		select distinct a.curno curNo,
+		a.account_date accountDate,
+		b.cmbno cmbno,
+		b.cmb_name cmbName,
+		c.description curDesc
+		from
+		IDRS_FINAC_BC_COMP_RS_TMP a, vw_combination_tbl_idrs b, IDRS_HIPO_OF_CURNO_MAP c
+		where a.cmbno = b.cmbno
+		and a.curno = c.hipo_curno
+		and a.cal_id =
+		#calId#
+	</select>
+
+	<!--查询科目比对结果-->
+	<select id="queryFinacialBcComResult" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.datacompare.finacialbalance.dto.FinacialBalanceCompareResultDTO">
+		select a.cal_id calId,
+		a.curno curNo,
+		a.account_date accountDate,
+		a.cmbno cmbno,
+		a.account_no accountNo,
+		a.account_desc accountDesc,
+		a.gl_ytdbalance_first glYidBalanceFirst,
+		a.gl_ytdbalance_end
+		glYidBalanceEnd,
+		a.of_ytdbalance_first ofYidBalanceFirst,
+		a.of_ytdbalance_end ofYidBalanceEnd,
+		a.ytdbalance_first_df
+		yidBalanceFirstDf,
+		a.ytdbalance_end_df yidBalanceEndDf
+		from
+		IDRS_FINAC_BC_COMP_RS_TMP a
+		where 1=1
+		<dynamic>
+			<isNotEmpty prepend="and" property="calId">
+				a.cal_id = #calId#
+          </isNotEmpty>
+			<isNotEmpty prepend="and" property="curNo">
+				trim(a.curno) = #curNo#
+          </isNotEmpty>
+		</dynamic>
+		and rownum &lt; 10000
+	</select>
+
+	<!--查询比对临时表记录-->
+	<select id="queryCompareTmpList" parameterClass="java.util.Map"
+		resultClass="com.paic.is.idrs.business.datacompare.assetvaluation.dto.AssetValuationDTO">
+
+		select distinct a.cmbno, a.asset_valuation_resource,
+		a.batch_grouo_id
+		from IDRS_ASSET_VALUA_COMP_TMP a
+		where a.cal_id =
+		#calId#    
+	</select>
+	
+    <!-- 查询error_log SQL  -->
+    <select id="searchErrorLog" parameterClass="java.lang.String"
+       resultClass="com.paic.is.idrs.common.system.dto.ErrorLogDTO">
+        SELECT procedure_name as procedureName,
+               error_code as errorCode,
+               error_info as errorInfo
+          FROM error_log
+         WHERE cal_id = #value#
+    </select>
+    
+     <!-- 查询日志表记录数  -->
+    <select id="errorLogCountQuery" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+        SELECT count(*)
+          FROM error_log
+         WHERE cal_id = #value#
+    </select>
+    
+    <resultMap id="result-result" class="java.util.HashMap">
+      <result property="flag" column="FLAG"/>
+      <result property="reason" column="REASON"/>
+   	</resultMap>
+   
+    <!-- 查询结果表  -->
+    <select id="resultQueryOne" parameterClass="java.lang.String" resultMap="result-result">
+        select FLAG, 
+               REASON
+          FROM RESULT
+         WHERE USERID=#value#
+           and rownum &lt; 2
+    </select>
+    
+    <!--增加错误信息到error_log add by wukaixiang227 20101129-->
+	<insert id="insertErrorLog" parameterClass="com.paic.is.idrs.common.system.dto.ErrorLogDTO">
+	  INSERT INTO error_log(
+	    cal_id,
+	    procedure_name,
+	    error_code,
+	    error_info,
+	    fcu,
+	    fcd,
+	    data_state,
+	    db_user	    
+	  )values(
+	    #calId#,
+	    #procedureName#,
+	    #errorCode#,
+	    #errorInfo#,
+        #fcu#,
+	    sysdate,
+	    '0',
+	    #dbUser#
+	  )
+	</insert>
+	
+	<select id="workItemQuery" parameterClass="java.util.Map" resultClass="com.paic.is.idrs.common.system.dto.WorkItemDTO">
+     select distinct READ_ONLY_FLAG as readOnlyFlag,
+        WORK_ITEM as workItem
+      from WORK_ITEM_TBL
+     where DATA_STATE = #dataState#
+      and DATA_ROLE = #dataRole#
+      and DETAIL_PAGE_FLAG = #detailPageFlag# 
+    </select>
+    
+    <!-- 查看根据表名来查看这个菜单是不是要求审核  -->
+    <select id="needCheckQuery" parameterClass="java.util.Map" resultClass="com.paic.is.idrs.common.system.dto.WorkItemDTO">
+     select a.need_check as needCheck
+       from paims_tables a 
+      where a.TABLE_NAME = #tableName#
+    </select>
+    
+</sqlMap>
